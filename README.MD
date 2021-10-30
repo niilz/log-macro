@@ -20,13 +20,13 @@ Here it is nested as a library inside of **use-log-macro**, which references **l
 Currently the the start of a function is logged in the form:
 
 ```
-> my function name
+> my_function_name
 ```
 
 But it be awesome to also log the end of the function, like:
 
 ```
-< my function name
+< my_function_name
 ```
 
 Although that is totally possible, it requires a bit more advanced parsing.
