@@ -1,4 +1,4 @@
-use the_mac::log;
+use log::log;
 
 fn main() {
     #[log]
