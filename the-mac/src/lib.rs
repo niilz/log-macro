@@ -12,6 +12,7 @@ pub fn log(_args: TokenStream, input: TokenStream) -> TokenStream {
         .take_while(|i| !is_brace(i))
         .collect();
     let signature = parse_macro_input!(signature as Signature);
+    let func_name = signature.ident.to_string();
 
     let mut body = input.into_iter().skip_while(|i| !is_brace(i));
     let body = body.next().unwrap().into();
@@ -19,7 +20,7 @@ pub fn log(_args: TokenStream, input: TokenStream) -> TokenStream {
 
     quote!(
         #signature {
-            println!("function starts");
+            println!("> {}", #func_name);
             #body
         }
     )
