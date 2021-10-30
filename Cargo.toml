@@ -1,9 +1,9 @@
 [package]
-name = "my-proc-mac"
+name = "use-log-macro"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-the-mac = { path = "./the-mac", version = "0.1.0" }
+the-mac = { path = "./log", version = "0.1.0" }
