@@ -1,0 +1,4 @@
+/target
+
+# Dont manage the nested macro from here
+/the-mac
