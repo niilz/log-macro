@@ -23,7 +23,7 @@ Currently the the start of a function is logged in the form:
 > my_function_name
 ```
 
-But it be awesome to also log the end of the function, like:
+But would it be awesome to maybe also log the end of the function, like:
 
 ```
 < my_function_name
@@ -31,6 +31,6 @@ But it be awesome to also log the end of the function, like:
 
 Although that is totally possible, it requires a bit more advanced parsing.
 Because we would first have to check whether the function returns a type.
-If that is the case, we have to "inject" the print statement before the return value is [quote](https://docs.rs/quote/)ed.
+If that is the case, we have to "inject" the print statement before the return value is [quote](https://docs.rs/quote/)d.
 
 Also I think this pattern shows how it might be possible to inject all sorts of runtime measurement logic, simply by adding attributes to functions.
