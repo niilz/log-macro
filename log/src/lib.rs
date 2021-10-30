@@ -13,7 +13,7 @@ pub fn log(_args: TokenStream, input: TokenStream) -> TokenStream {
 
     // Figure out if the function is returning a type
     // If so: store the last statement separately
-    let return_type = match signature.output {
+    let return_statement = match signature.output {
         ReturnType::Default => quote!(()),
         ReturnType::Type(_, _) => match body.stmts.pop() {
             Some(stmt) => quote!(#stmt),
@@ -27,7 +27,7 @@ pub fn log(_args: TokenStream, input: TokenStream) -> TokenStream {
             #body
             println!("< {}", #func_name);
 
-            #return_type
+            #return_statement
         }
     )
     .into()
