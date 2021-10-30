@@ -2,32 +2,35 @@ extern crate proc_macro;
 
 use proc_macro::{Delimiter, TokenStream, TokenTree};
 use quote::quote;
-use syn::{
-    parse::{Parse, ParseStream},
-    parse_macro_input,
-    token::{Brace, Group},
-    Signature,
-};
+use syn::{parse_macro_input, Signature};
 
 #[proc_macro_attribute]
 pub fn log(_args: TokenStream, input: TokenStream) -> TokenStream {
-    let signature = get_signature(input.clone());
+    let signature = input
+        .clone()
+        .into_iter()
+        .take_while(|i| !is_brace(i))
+        .collect();
     let signature = parse_macro_input!(signature as Signature);
-    dbg!(signature.ident);
+
+    let mut body = input.into_iter().skip_while(|i| !is_brace(i));
+    let body = body.next().unwrap().into();
+    let body = parse_macro_input!(body as proc_macro2::Group);
+
     quote!(
-        struct Dummy {}
+        #signature {
+            println!("function starts");
+            #body
+        }
     )
     .into()
 }
 
-fn get_signature(input: TokenStream) -> TokenStream {
-    input
-        .into_iter()
-        .take_while(|i| match i {
-            TokenTree::Group(group) if group.delimiter() == Delimiter::Brace => false,
-            _ => true,
-        })
-        .collect()
+fn is_brace(item: &TokenTree) -> bool {
+    match item {
+        TokenTree::Group(group) if group.delimiter() == Delimiter::Brace => true,
+        _ => false,
+    }
 }
 
 #[cfg(test)]
